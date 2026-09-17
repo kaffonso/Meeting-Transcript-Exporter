@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!-- transcript sheet sliding out of the bubble -->
+  <g transform="rotate(14 86 40)">
+    <rect x="62" y="8" width="46" height="60" rx="7" fill="#FFFFFF" stroke="#2A1B3D" stroke-width="6"/>
+    <path d="M72 24 H98 M72 36 H92 M72 48 H96" stroke="#FF6B8A" stroke-width="5" stroke-linecap="round"/>
+  </g>
+  <!-- speech bubble -->
+  <path d="M40 36 H78 A26 26 0 0 1 104 62 V74 A26 26 0 0 1 78 100 H48 L26 118 L32 98 A26 26 0 0 1 14 74 V62 A26 26 0 0 1 40 36 Z"
+        fill="#FFB800" stroke="#2A1B3D" stroke-width="6" stroke-linejoin="round"/>
+  <!-- face -->
+  <circle cx="45" cy="64" r="6" fill="#2A1B3D"/>
+  <circle cx="73" cy="64" r="6" fill="#2A1B3D"/>
+  <circle cx="35" cy="78" r="5" fill="#FF6B8A" opacity=".8"/>
+  <circle cx="83" cy="78" r="5" fill="#FF6B8A" opacity=".8"/>
+  <path d="M49 79 Q59 89 69 79" fill="none" stroke="#2A1B3D" stroke-width="5" stroke-linecap="round"/>
+</svg>
