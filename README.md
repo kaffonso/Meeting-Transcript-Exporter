@@ -4,82 +4,151 @@
 
 <h1 align="center">Meeting Transcript Exporter</h1>
 
-A small Chrome extension that exports meeting transcripts you can already see in your browser to **Markdown** or **plain text**.
+<p align="center">
+  Export the meeting transcript you're looking at to <b>Markdown</b> or <b>plain text</b>, in one click.<br>
+  No AI, no account, no servers. And you level up while you do it.
+</p>
 
-No AI, no API keys, no servers. It reads the transcript that the app has already rendered on the page and builds the file locally, so it is fast and your data never leaves your machine.
+<p align="center">
+  <img alt="Manifest V3" src="https://img.shields.io/badge/manifest-v3-2A1B3D">
+  <img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-FFB800">
+  <img alt="No tracking" src="https://img.shields.io/badge/tracking-none-FF6B8A">
+  <img alt="PRs welcome" src="https://img.shields.io/badge/PRs-welcome-2A1B3D">
+</p>
+
+<p align="center">
+  <img src="assets/screenshots/export.png" width="720" alt="The extension popup next to the headline 'Your meeting transcript, one click away'">
+</p>
+
+## Why
+
+Transcription apps show you the whole transcript in the browser, but getting it out as a file is often limited or locked behind a plan. This extension reads the transcript already rendered on the page and saves it as a clean file you can paste into docs, wikis or AI tools.
+
+Everything runs locally, so it's fast and your conversations never leave your machine.
+
+## Features
+
+- 📄 **Markdown, .txt or clipboard**, with speaker names and timestamps
+- 🧾 **Header with the essentials**: title, date, duration and participants
+- 🔗 **Merge back-to-back lines** from the same person for easier reading
+- 📜 **Long meetings supported**: scrolls through transcripts that only render visible lines
+- 🎮 **XP, levels, streaks and 12 badges**, just for fun
+- 🔒 **Private by design**: no analytics, no network requests, runs only when you click it
+- 🧩 **Adapter system**: support a new app by adding one file
 
 ## Supported apps
 
 | App | Status |
 |---|---|
 | Fireflies.ai | ✅ Supported |
-| _Your app here_ | See [CONTRIBUTING.md](CONTRIBUTING.md) |
-
-## Features
-
-- Download as `.md` or `.txt`, or copy Markdown to the clipboard
-- Speaker names and timestamps
-- Optional merging of consecutive lines from the same speaker
-- Handles long transcripts that only render visible lines, by scrolling through them automatically
-- Adapter system, so adding a new app is one file
-- XP, levels, daily streaks and 12 badges to unlock, just for fun
+| Your favorite app | 🙋 [Request it](../../issues/new?template=adapter_request.yml) or [build it](CONTRIBUTING.md) |
 
 ## Install
 
-1. Download or clone this repository.
-2. Open `chrome://extensions` and turn on **Developer mode**.
-3. Click **Load unpacked** and select the repository folder.
-4. Pin the extension to the toolbar.
+### From the Chrome Web Store
+_Coming soon._
 
-Works in Chromium-based browsers (Chrome, Edge, Brave, Arc).
+### From source
+1. [Download the latest release](../../releases/latest) or clone this repo.
+2. Open `chrome://extensions` (or `brave://extensions`, `edge://extensions`).
+3. Turn on **Developer mode**.
+4. Click **Load unpacked** and select the project folder.
+5. Pin the extension to your toolbar.
+
+Works in Chrome, Brave, Edge, Arc and other Chromium-based browsers.
 
 ## Usage
 
-1. Open a meeting page in a supported app, with the transcript visible.
+1. Open a meeting in a supported app, with the transcript visible.
 2. Click the extension icon.
-3. Choose **Download .md**, **Download .txt**, or **Copy Markdown**.
+3. Choose **Download Markdown**, **Download .txt** or **Copy**.
 
-## Example output
+<p align="center">
+  <img src="assets/screenshots/output.png" width="720" alt="Example Markdown file with title, date, speakers and timestamped lines">
+</p>
+
+### Example output
 
 ```markdown
-# Weekly Sync
+# Weekly Product Sync
 
-**Date:** 9/16/2026, 5:00:00 PM
-**Duration:** ~31 min
-**Speakers:** Alice, Bob
+**Date:** 9/15/2026, 10:00 AM
+**Duration:** ~24 min
+**Speakers:** Alice Moreira, Bruno Lima
 **Source:** Fireflies.ai
 
 ---
 
-**Alice** (00:06): Hi Bob, can you walk me through the new dashboard?
+**Alice Moreira** (00:04): Morning! Can we start with the onboarding numbers?
 
-**Bob** (00:12): Sure, let me share my screen.
+**Bruno Lima** (00:11): Sure. Sign-ups are up this week, and the new checklist is helping people finish setup.
 ```
 
 ## Levels and badges
 
-Every export earns XP: 10 for the export, up to 20 more based on how many words it has, 5 for a meeting you haven't exported before, and 5 for keeping a daily streak going. Unlocking a badge adds 25.
+<p align="center">
+  <img src="assets/screenshots/badges.png" width="720" alt="Popup showing level progress, a 3-day streak, a badge unlock message and the badge grid">
+</p>
 
-Climb from **Note Newbie** to **Legendary Scribe**, keep a daily streak alive, and collect badges like Night Owl, Marathon Meeting and Triple Threat. Locked badges show a hint when you hover them.
+Every export earns XP:
 
-Progress is saved only in your browser with `chrome.storage.local`. Nothing is sent anywhere, and you can reset it from the Badges section.
+| Action | XP |
+|---|---|
+| Export a transcript | 10 |
+| Every 100 words (max 20) | +1 |
+| A meeting you haven't exported before | +5 |
+| Keeping a daily streak going | +5 |
+| Unlocking a badge | +25 |
+
+Climb from **Note Newbie** to **Legendary Scribe** and collect badges like 🦉 Night Owl, 🏃 Marathon Meeting and 🎯 Triple Threat. Hover a locked badge to see how to unlock it.
+
+Progress is stored only in your browser with `chrome.storage.local`, and you can reset it from the Badges section.
 
 ## How it works
 
-When you click a button, the popup injects `src/core.js` and the adapters into the current tab. The adapter that matches the URL reads the transcript elements from the page, and the popup formats and downloads the result.
+```
+popup.js ──inject──▶ src/core.js + src/adapters/*.js ──▶ adapter reads the page
+    ▲                                                          │
+    └──────────── { title, meta, paragraphs } ◀────────────────┘
+    │
+    └─▶ format as .md / .txt ─▶ download or copy ─▶ game.js awards XP
+```
 
-Permissions are limited to `activeTab`, `scripting` and `storage`: the extension only reads the tab you click it on, only when you click it, and `storage` is used just to remember your XP and badges locally.
+| File | Role |
+|---|---|
+| `manifest.json` | Extension config and permissions |
+| `popup.html`, `popup.css` | Popup UI and mascot |
+| `popup.js` | Injects adapters, formats and downloads the transcript |
+| `game.js` | XP, levels, streaks and badges |
+| `src/core.js` | Shared helpers and adapter registry |
+| `src/adapters/` | One file per supported app |
+
+### Permissions
+
+| Permission | Why |
+|---|---|
+| `activeTab` | Read the tab you're on, only after you click the extension |
+| `scripting` | Run the bundled adapter on that tab |
+| `storage` | Remember your XP and badges locally |
+
+No host permissions, no remote code. See [PRIVACY.md](PRIVACY.md).
+
+## Contributing
+
+The most useful contribution is an adapter for a new transcription app. It's one file, and [CONTRIBUTING.md](CONTRIBUTING.md) walks you through it, including how to pick selectors that don't break on every deploy.
+
+Bug reports and ideas are welcome in [Issues](../../issues).
 
 ## Limitations
 
-Adapters depend on each app's page structure. When an app updates its interface, its adapter may stop working until the selectors are updated. Issues and pull requests are welcome.
+Adapters depend on each app's page structure. When an app updates its interface, its adapter may stop working until the selectors are updated. If that happens, please [open an issue](../../issues/new?template=bug_report.yml).
 
 ## Disclaimer
 
-This project is not affiliated with, endorsed by, or sponsored by Fireflies.ai or any other app it supports. All product names and trademarks belong to their owners and are used only to describe compatibility.
+This is an independent open-source project. It is not affiliated with, endorsed by, or sponsored by Fireflies.ai or any other app it supports. Product names and trademarks belong to their owners and are used only to describe compatibility.
 
-This tool is intended for exporting meetings you have legitimate access to, for personal use. You are responsible for complying with the terms of service of the apps you use it with and with any applicable laws, including consent and privacy rules for recorded conversations.
+Use it for meetings you have legitimate access to. You're responsible for following the terms of the apps you use and any applicable laws and policies on recorded conversations.
 
 ## License
 
-[MIT](LICENSE)
+[MIT](LICENSE) © 2026 Kenny Afonso
