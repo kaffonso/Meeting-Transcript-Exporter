@@ -1,0 +1,40 @@
+name: Adapter request
+description: Ask for support for a new meeting or transcription app
+title: "[Adapter]: "
+labels: ["adapter", "enhancement"]
+body:
+  - type: input
+    id: app
+    attributes:
+      label: App name
+      placeholder: Otter.ai, tl;dv, Fathom...
+    validations:
+      required: true
+  - type: input
+    id: url
+    attributes:
+      label: Transcript page URL pattern
+      description: The address of a meeting page with the transcript visible. Replace IDs with `...`.
+      placeholder: https://app.example.com/meetings/.../transcript
+    validations:
+      required: true
+  - type: textarea
+    id: html
+    attributes:
+      label: Transcript HTML
+      description: |
+        Open DevTools, right-click the element that wraps the transcript, choose **Copy → Copy outerHTML**, and paste it here.
+        Two or three lines from different speakers are enough. Please remove real names and any private content first.
+      render: html
+  - type: textarea
+    id: layout
+    attributes:
+      label: How the transcript is laid out
+      description: Anything useful, like whether it shows timestamps, whether it only renders the visible lines while scrolling, or whether it needs a click to open.
+  - type: checkboxes
+    id: help
+    attributes:
+      label: Contributing
+      options:
+        - label: I'm willing to test a draft adapter on my account
+        - label: I'd like to build this adapter myself (see CONTRIBUTING.md)
