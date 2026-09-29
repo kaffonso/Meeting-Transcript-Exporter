@@ -41,6 +41,9 @@ Everything runs locally, so it's fast and your conversations never leave your ma
 | App | Status |
 |---|---|
 | Fireflies.ai | ✅ Supported |
+| tl;dv | 🧪 Beta, please report issues |
+| Otter.ai | 🧪 Beta, please report issues |
+| Fathom | 🧪 Beta, please report issues |
 | Your favorite app | 🙋 [Request it](../../issues/new?template=adapter_request.yml) or [build it](CONTRIBUTING.md) |
 
 ## Install
@@ -97,7 +100,7 @@ Every export earns XP:
 | Export a transcript | 10 |
 | Every 100 words (max 20) | +1 |
 | A meeting you haven't exported before | +5 |
-| Keeping a daily streak going | +5 |
+| Keeping a daily streak going (weekends never break it) | +5 |
 | Unlocking a badge | +25 |
 
 Climb from **Note Newbie** to **Legendary Scribe** and collect badges like 🦉 Night Owl, 🏃 Marathon Meeting and 🎯 Triple Threat. Hover a locked badge to see how to unlock it.

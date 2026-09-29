@@ -35,6 +35,20 @@ const Game = (() => {
 
   const dayKey = (d) => `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
 
+  const isWeekend = (d) => d.getDay() === 0 || d.getDay() === 6;
+
+  // Weekends never break a streak: walk back from today until the most recent
+  // weekday, and accept any day in that range as the previous streak day.
+  function continuesStreak(lastDay, now) {
+    if (!lastDay) return false;
+    const d = new Date(now);
+    do {
+      d.setDate(d.getDate() - 1);
+      if (dayKey(d) === lastDay) return true;
+    } while (isWeekend(d));
+    return false;
+  }
+
   async function load() {
     const { game } = await chrome.storage.local.get('game');
     return { ...fresh(), ...(game || {}) };
@@ -63,11 +77,9 @@ const Game = (() => {
     const before = levelFor(s.xp);
 
     const today = dayKey(now);
-    const yesterday = new Date(now);
-    yesterday.setDate(now.getDate() - 1);
     const firstToday = s.lastDay !== today;
     if (firstToday) {
-      s.streak = s.lastDay === dayKey(yesterday) ? s.streak + 1 : 1;
+      s.streak = continuesStreak(s.lastDay, now) ? s.streak + 1 : 1;
       s.lastDay = today;
       s.bestStreak = Math.max(s.bestStreak, s.streak);
     }
