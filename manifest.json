@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Meeting Transcript Exporter",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Export meeting transcripts you can already see in your browser to Markdown or plain text.",
   "permissions": [
     "activeTab",

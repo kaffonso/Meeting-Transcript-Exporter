@@ -23,6 +23,10 @@ The most useful contribution is an **adapter** for a new transcription app. An a
 | `isTimestamp(str)` | True for `mm:ss` or `hh:mm:ss` |
 | `scrollThrough(container, grab)` | Scrolls a container top to bottom, calling `grab()` at each step, for apps that only render visible lines |
 | `readJsonScript(id)` | Parses a `<script type="application/json">` element by id |
+| `scrollParent(el)` | Nearest ancestor that actually scrolls, to pass to `scrollThrough` |
+| `timestampLeaves(root)` | Leaf elements whose whole text is a timestamp |
+| `pickRoot(selectors)` | First matching element that contains timestamps, else `document.body` |
+| `guessParagraphs(root)` | Builds `{ speaker, time, text }` lines from timestamp elements when the app's markup is unstable; see `otter.js` |
 
 ### Tips for finding selectors
 

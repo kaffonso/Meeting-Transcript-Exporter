@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Adapter test page</title>
+  <style>
+    body { font: 14px/1.5 system-ui, sans-serif; margin: 24px; max-width: 900px; }
+    section { border: 1px solid #ccc; padding: 12px; margin-bottom: 16px; }
+    pre { background: #f5f5f5; padding: 12px; overflow: auto; }
+    .ok { color: #1a7f37; } .fail { color: #b3261e; }
+  </style>
+</head>
+<body>
+<h1>Weekly sync</h1>
+<p>Open this file directly in Chrome. It runs each adapter against the sample markup below and prints the result at the bottom.</p>
+
+<section>
+  <h2>tl;dv (real markup captured from tldv.io)</h2>
+  <div id="transcript-container" class="relative max-w-[630px] mx-auto overflow-y-auto no-scrollbar selection:bg-[#EBFFFB] selection:text-base-500">
+    <div class="flex flex-1 flex-col gap-2">
+      <p data-index="0" class="group/block px-6 pb-2 leading-[17px]" data-time="0" data-active="false">
+        <span class="cursor-pointer text-[13px] text-base-600 font-semibold block select-none" data-speaker="true" data-read="false" data-time="0" data-active="true">
+          <a href="#" class="hidden text-primary-400">00:00 </a>
+          <span>Speaker 1</span>
+          <span class="hidden">: </span>
+        </span>
+        <span data-clipped="false" class="cursor-pointer font-normal text-[13px] text-base-500" data-speaker="false" data-read="false" data-time="0">Hello </span>
+        <span data-clipped="false" class="cursor-pointer font-normal text-[13px] text-base-500" data-speaker="false" data-read="false" data-time="294">and </span>
+        <span data-clipped="false" class="cursor-pointer font-normal text-[13px] text-base-500" data-speaker="false" data-read="false" data-time="588">welcome </span>
+        <span data-clipped="false" class="cursor-pointer font-normal text-[13px] text-base-500" data-speaker="false" data-read="false" data-time="882">to </span>
+        <span data-clipped="false" class="cursor-pointer font-normal text-[13px] text-base-500" data-speaker="false" data-read="false" data-time="1175">our </span>
+        <span data-clipped="false" class="cursor-pointer font-normal text-[13px] text-base-500" data-speaker="false" data-read="false" data-time="1469">meeting. </span>
+      </p>
+      <p data-index="1" class="group/block px-6 pb-2 leading-[17px]" data-time="2057" data-active="false">
+        <span class="cursor-pointer text-[13px] text-base-600 font-semibold block select-none" data-speaker="true" data-read="false" data-time="2057">
+          <a href="#" class="hidden text-primary-400">00:02 </a>
+          <span>Speaker 2</span>
+          <span class="hidden">: </span>
+        </span>
+        <span data-clipped="false" class="cursor-pointer font-normal text-[13px] text-base-500" data-speaker="false" data-read="false" data-time="2057">Thanks </span>
+        <span data-clipped="false" class="cursor-pointer font-normal text-[13px] text-base-500" data-speaker="false" data-read="false" data-time="2501">for </span>
+        <span data-clipped="false" class="cursor-pointer font-normal text-[13px] text-base-500" data-speaker="false" data-read="false" data-time="2946">having </span>
+        <span data-clipped="false" class="cursor-pointer font-normal text-[13px] text-base-500" data-speaker="false" data-read="false" data-time="3390">me </span>
+        <span data-clipped="false" class="cursor-pointer font-normal text-[13px] text-base-500" data-speaker="false" data-read="false" data-time="3835">here </span>
+        <span data-clipped="false" class="cursor-pointer font-normal text-[13px] text-base-500" data-speaker="false" data-read="false" data-time="4279">today. </span>
+      </p>
+      <p data-index="2" class="group/block px-6 pb-2 leading-[17px]" data-time="5000" data-active="false">
+        <span class="cursor-pointer text-[13px] text-base-600 font-semibold block select-none" data-speaker="true" data-read="false" data-time="5000">
+          <a href="#" class="hidden text-primary-400">00:05 </a>
+          <span>Speaker 1</span>
+          <span class="hidden">: </span>
+        </span>
+        <span data-clipped="false" class="cursor-pointer font-normal text-[13px] text-base-500" data-speaker="false" data-read="false" data-time="5000">Let's </span>
+        <span data-clipped="false" class="cursor-pointer font-normal text-[13px] text-base-500" data-speaker="false" data-read="false" data-time="5500">discuss </span>
+        <span data-clipped="false" class="cursor-pointer font-normal text-[13px] text-base-500" data-speaker="false" data-read="false" data-time="6000">the </span>
+        <span data-clipped="false" class="cursor-pointer font-normal text-[13px] text-base-500" data-speaker="false" data-read="false" data-time="6500">project </span>
+        <span data-clipped="false" class="cursor-pointer font-normal text-[13px] text-base-500" data-speaker="false" data-read="false" data-time="7000">timeline. </span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Otter.ai (mock layout: speaker + time header, then text)</h2>
+  <div class="transcript-view" id="otter">
+    <div class="paragraph"><div class="header"><span class="speaker">Kenny Afonso</span><span class="time">0:03</span></div><div class="text">Hello everyone, welcome to the call.</div></div>
+    <div class="paragraph"><div class="header"><span class="speaker">Speaker 2</span><span class="time">0:15</span></div><div class="text">Thanks. Let's begin with the roadmap.</div></div>
+    <div class="paragraph"><div class="header"><span class="time">0:40</span></div><div class="text">This line has no speaker label.</div></div>
+  </div>
+</section>
+
+<section>
+  <h2>Fathom (mock layout: name, time, then text)</h2>
+  <aside id="fathom">
+    <div class="row"><div><span>Rob Sousa</span><span>00:05:32</span></div><p>First Fathom line of text.</p></div>
+    <div class="row"><div><span>Ana Lima</span><span>00:05:40</span></div><p>Second Fathom line, with a comma.</p></div>
+  </aside>
+</section>
+
+<nav>Decoy timestamp outside any transcript: <span>1:00</span> Summary chapter</nav>
+
+<h2>Results</h2>
+<p id="verdict"></p>
+<pre id="out">Running…</pre>
+
+<script src="../src/core.js"></script>
+<script src="../src/adapters/tldv.js"></script>
+<script src="../src/adapters/otter.js"></script>
+<script src="../src/adapters/fathom.js"></script>
+<script>
+(async () => {
+  const T = window.TranscriptExporter;
+  const cases = {
+    tldv: 'https://tldv.io/app/meetings/abc123',
+    otter: 'https://otter.ai/u/XyZ-123',
+    fathom: 'https://fathom.video/calls/98765',
+    none: 'https://example.com/meeting',
+  };
+  const out = {};
+  for (const [name, url] of Object.entries(cases)) {
+    const a = T.find(new URL(url));
+    if (!a) { out[name] = 'no adapter (expected)'; continue; }
+    // Each heuristic adapter should only see its own panel, as on a real page.
+    if (name === 'otter') document.getElementById('transcript-container').remove();
+    if (name === 'fathom') document.getElementById('otter').remove();
+    out[name] = { adapter: a.id, ...(await a.extract(T.helpers)) };
+  }
+  const counts = ['tldv', 'otter', 'fathom'].map((k) => out[k].paragraphs?.length || 0);
+  const ok = counts.join(',') === '3,3,2' && out.none.startsWith('no adapter');
+  const v = document.getElementById('verdict');
+  v.textContent = ok ? 'PASS: all adapters returned the expected lines.' : 'FAIL: see output below.';
+  v.className = ok ? 'ok' : 'fail';
+  document.getElementById('out').textContent = JSON.stringify(out, null, 2);
+})();
+</script>
+</body>
+</html>
