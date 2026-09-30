@@ -7,7 +7,7 @@ body:
     id: app
     attributes:
       label: App name
-      placeholder: Otter.ai, tl;dv, Fathom...
+      placeholder: Fathom, Grain, Zoom, Google Meet...
     validations:
       required: true
   - type: input

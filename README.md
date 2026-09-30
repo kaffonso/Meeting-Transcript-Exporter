@@ -147,7 +147,7 @@ Adapters depend on each app's page structure. When an app updates its interface,
 
 ## Disclaimer
 
-This is an independent open-source project. It is not affiliated with, endorsed by, or sponsored by Fireflies.ai or any other app it supports. Product names and trademarks belong to their owners and are used only to describe compatibility.
+This is an independent open-source project. It is not affiliated with, endorsed by, or sponsored by Fireflies.ai, tl;dv, Otter.ai or any other app it supports. Product names and trademarks belong to their owners and are used only to describe compatibility.
 
 Use it for meetings you have legitimate access to. You're responsible for following the terms of the apps you use and any applicable laws and policies on recorded conversations.
 

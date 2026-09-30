@@ -9,6 +9,8 @@ body:
       label: Meeting app
       options:
         - Fireflies.ai
+        - tl;dv
+        - Otter.ai
         - Other (say which below)
     validations:
       required: true
@@ -36,7 +38,7 @@ body:
     attributes:
       label: Extension version
       description: Shown on chrome://extensions or in manifest.json
-      placeholder: 1.3.0
+      placeholder: 1.4.1
   - type: textarea
     id: console
     attributes:
