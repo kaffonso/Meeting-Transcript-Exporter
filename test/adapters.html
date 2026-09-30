@@ -68,6 +68,8 @@
     <div class="paragraph"><div class="header"><span class="time">0:40</span></div><div class="text">This line has no speaker label.</div></div>
     <div class="paragraph"><div class="header"><span class="avatar">AL</span><span class="speaker">Ana Lima</span><span class="time">0:52</span></div><div class="text">Yes</div></div>
     <div class="paragraph"><div class="header"><span class="avatar">A</span><span class="time">1:10</span><span class="speaker">António Santos</span></div><div class="text">Okay</div></div>
+    <div class="paragraph"><div class="header"><span class="avatar">K</span><span class="time">1:30</span><span class="speaker">Kenny Afonso</span></div><div class="text"><mark>Possibilities</mark> are endless here.</div></div>
+    <div class="paragraph"><div class="header"><span class="avatar">A</span><span class="time">1:45</span></div><div class="text"><mark>Sure</mark> thing, let's do it.</div></div>
   </div>
 </section>
 
@@ -99,7 +101,7 @@
   }
   const counts = ['tldv', 'otter'].map((k) => out[k].paragraphs?.length || 0);
   const names = (out.otter.paragraphs || []).map((p) => p.speaker).join(',');
-  const ok = counts.join(',') === '3,5' && names === 'Kenny Afonso,Speaker 2,Speaker 2,Ana Lima,António Santos' && out.none.startsWith('no adapter');
+  const ok = counts.join(',') === '3,7' && names === 'Kenny Afonso,Speaker 2,Speaker 2,Ana Lima,António Santos,Kenny Afonso,António Santos' && out.none.startsWith('no adapter');
   const v = document.getElementById('verdict');
   v.textContent = ok ? 'PASS: all adapters returned the expected lines.' : 'FAIL: see output below.';
   v.className = ok ? 'ok' : 'fail';

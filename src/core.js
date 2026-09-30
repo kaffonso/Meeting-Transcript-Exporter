@@ -63,10 +63,11 @@
 
     // For apps whose markup isn't pinned down. Each timestamp leaf anchors one paragraph:
     // the paragraph is the outermost ancestor that still holds only that timestamp. The
-    // speaker is the longest name-like leaf in the header, meaning everything before the
-    // timestamp plus the run of short leaves right after it (avatars render initials in
-    // the header too, and the full name is always longer). The rest is text. Lines
-    // without a speaker inherit the previous one.
+    // speaker comes from the header, meaning the leaves before the timestamp plus the run
+    // of short leaves right after it. Avatars render initials in the header too, so when
+    // initials are present the name must start with that letter, which also stops a
+    // highlighted first word of the text from being mistaken for a name. Lines that show
+    // only initials reuse the full name seen earlier for them. The rest is text.
     guessParagraphs(root = document.body) {
       const stamps = helpers.timestampLeaves(root);
       const stampsWithin = new Map();
@@ -76,9 +77,11 @@
         }
       }
 
-      const looksLikeName = (t) => t.length > 0 && t.length <= 40 && !/[.!?,;]$/.test(t) && /\p{L}/u.test(t);
+      const looksLikeName = (t) => t.length > 0 && t.length <= 40 && !/[.!?,;]$/.test(t) && /^\p{Lu}/u.test(t);
+      const isInitials = (t) => /^\p{Lu}{1,2}$/u.test(t);
       const rows = new Set();
       const out = [];
+      const nameByInitials = new Map();
       let lastSpeaker = '';
 
       for (const stamp of stamps) {
@@ -89,17 +92,28 @@
         if (rows.has(row)) continue;
         rows.add(row);
 
-        const leaves = row.childElementCount === 0
-          ? [row]
-          : [...row.querySelectorAll('*')].filter((el) => el.childElementCount === 0);
-        const at = leaves.indexOf(stamp);
-        const textOf = (els) => els.map((el) => helpers.clean(el.textContent)).filter(Boolean);
-        const after = textOf(leaves.slice(at + 1));
+        // Text nodes, not elements, so words outside any span (after a highlight, say) are kept.
+        const tokens = [];
+        let at = -1;
+        const walker = document.createTreeWalker(row, NodeFilter.SHOW_TEXT);
+        for (let n = walker.nextNode(); n; n = walker.nextNode()) {
+          const t = helpers.clean(n.textContent);
+          if (!t) continue;
+          if (n.parentElement === stamp) at = tokens.length;
+          tokens.push(t);
+        }
+        const after = tokens.slice(at + 1);
         let run = 0;
         while (run < after.length && looksLikeName(after[run])) run += 1;
-        const candidates = [...textOf(leaves.slice(0, at)).filter(looksLikeName), ...after.slice(0, run)];
+        const header = [...tokens.slice(0, at).filter(looksLikeName), ...after.slice(0, run)];
+        const initials = header.find(isInitials);
+        const names = header
+          .filter((t) => !isInitials(t) && (!initials || t.startsWith(initials[0])))
+          .sort((a, b) => b.length - a.length);
 
-        const speaker = candidates.sort((a, b) => b.length - a.length)[0] || '';
+        let speaker = names[0] || '';
+        if (speaker && initials) nameByInitials.set(initials, speaker);
+        if (!speaker && initials) speaker = nameByInitials.get(initials) || initials;
         const text = helpers.clean(after.filter((t) => t !== speaker).join(' '));
         if (!text) continue;
 
