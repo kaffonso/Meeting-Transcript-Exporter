@@ -63,9 +63,10 @@
 
     // For apps whose markup isn't pinned down. Each timestamp leaf anchors one paragraph:
     // the paragraph is the outermost ancestor that still holds only that timestamp. The
-    // speaker is the longest name-like leaf before the timestamp (avatars render initials
-    // there too, and the full name is always longer), falling back to the first name-like
-    // leaf after it. The rest is text. Lines without a speaker inherit the previous one.
+    // speaker is the longest name-like leaf in the header, meaning everything before the
+    // timestamp plus the run of short leaves right after it (avatars render initials in
+    // the header too, and the full name is always longer). The rest is text. Lines
+    // without a speaker inherit the previous one.
     guessParagraphs(root = document.body) {
       const stamps = helpers.timestampLeaves(root);
       const stampsWithin = new Map();
@@ -93,12 +94,13 @@
           : [...row.querySelectorAll('*')].filter((el) => el.childElementCount === 0);
         const at = leaves.indexOf(stamp);
         const textOf = (els) => els.map((el) => helpers.clean(el.textContent)).filter(Boolean);
-        const before = textOf(leaves.slice(0, at)).filter(looksLikeName);
         const after = textOf(leaves.slice(at + 1));
+        let run = 0;
+        while (run < after.length && looksLikeName(after[run])) run += 1;
+        const candidates = [...textOf(leaves.slice(0, at)).filter(looksLikeName), ...after.slice(0, run)];
 
-        let speaker = before.sort((a, b) => b.length - a.length)[0] || '';
-        if (!speaker && after.length && looksLikeName(after[0])) speaker = after.shift();
-        const text = helpers.clean(after.join(' '));
+        const speaker = candidates.sort((a, b) => b.length - a.length)[0] || '';
+        const text = helpers.clean(after.filter((t) => t !== speaker).join(' '));
         if (!text) continue;
 
         if (speaker) lastSpeaker = speaker;
