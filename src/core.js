@@ -62,9 +62,10 @@
     },
 
     // For apps whose markup isn't pinned down. Each timestamp leaf anchors one paragraph:
-    // the paragraph is the outermost ancestor that still holds only that timestamp, the
-    // speaker is the first short name-like leaf before the spoken text, and the text is
-    // everything else. Lines without a speaker inherit the previous one.
+    // the paragraph is the outermost ancestor that still holds only that timestamp. The
+    // speaker is the longest name-like leaf before the timestamp (avatars render initials
+    // there too, and the full name is always longer), falling back to the first name-like
+    // leaf after it. The rest is text. Lines without a speaker inherit the previous one.
     guessParagraphs(root = document.body) {
       const stamps = helpers.timestampLeaves(root);
       const stampsWithin = new Map();
@@ -87,19 +88,17 @@
         if (rows.has(row)) continue;
         rows.add(row);
 
-        const leaves = [...row.querySelectorAll('*')]
-          .filter((el) => el !== stamp && el.childElementCount === 0)
-          .map((el) => helpers.clean(el.textContent))
-          .filter(Boolean);
-        if (row.childElementCount === 0) leaves.push(helpers.clean(row.textContent));
+        const leaves = row.childElementCount === 0
+          ? [row]
+          : [...row.querySelectorAll('*')].filter((el) => el.childElementCount === 0);
+        const at = leaves.indexOf(stamp);
+        const textOf = (els) => els.map((el) => helpers.clean(el.textContent)).filter(Boolean);
+        const before = textOf(leaves.slice(0, at)).filter(looksLikeName);
+        const after = textOf(leaves.slice(at + 1));
 
-        let speaker = '';
-        const textParts = [];
-        for (const t of leaves) {
-          if (!speaker && !textParts.length && looksLikeName(t)) { speaker = t; continue; }
-          textParts.push(t);
-        }
-        const text = helpers.clean(textParts.join(' '));
+        let speaker = before.sort((a, b) => b.length - a.length)[0] || '';
+        if (!speaker && after.length && looksLikeName(after[0])) speaker = after.shift();
+        const text = helpers.clean(after.join(' '));
         if (!text) continue;
 
         if (speaker) lastSpeaker = speaker;

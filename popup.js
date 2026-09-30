@@ -3,7 +3,6 @@ const ADAPTER_FILES = [
   'src/adapters/fireflies.js',
   'src/adapters/tldv.js',
   'src/adapters/otter.js',
-  'src/adapters/fathom.js',
 ];
 
 const $ = (id) => document.getElementById(id);

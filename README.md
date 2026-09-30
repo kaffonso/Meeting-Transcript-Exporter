@@ -41,9 +41,8 @@ Everything runs locally, so it's fast and your conversations never leave your ma
 | App | Status |
 |---|---|
 | Fireflies.ai | ✅ Supported |
-| tl;dv | 🧪 Beta, please report issues |
-| Otter.ai | 🧪 Beta, please report issues |
-| Fathom | 🧪 Beta, please report issues |
+| tl;dv | ✅ Supported |
+| Otter.ai | ✅ Supported |
 | Your favorite app | 🙋 [Request it](../../issues/new?template=adapter_request.yml) or [build it](CONTRIBUTING.md) |
 
 ## Install

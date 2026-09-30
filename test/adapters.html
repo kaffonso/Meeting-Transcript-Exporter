@@ -61,21 +61,15 @@
 </section>
 
 <section>
-  <h2>Otter.ai (mock layout: speaker + time header, then text)</h2>
+  <h2>Otter.ai (mock layout: avatar initials + speaker + time header, then text)</h2>
   <div class="transcript-view" id="otter">
-    <div class="paragraph"><div class="header"><span class="speaker">Kenny Afonso</span><span class="time">0:03</span></div><div class="text">Hello everyone, welcome to the call.</div></div>
-    <div class="paragraph"><div class="header"><span class="speaker">Speaker 2</span><span class="time">0:15</span></div><div class="text">Thanks. Let's begin with the roadmap.</div></div>
+    <div class="paragraph"><div class="header"><span class="avatar">K</span><span class="speaker">Kenny Afonso</span><span class="time">0:03</span></div><div class="text">Hello everyone, welcome to the call.</div></div>
+    <div class="paragraph"><div class="header"><span class="avatar">S2</span><span class="speaker">Speaker 2</span><span class="time">0:15</span></div><div class="text">Thanks. Let's begin with the roadmap.</div></div>
     <div class="paragraph"><div class="header"><span class="time">0:40</span></div><div class="text">This line has no speaker label.</div></div>
+    <div class="paragraph"><div class="header"><span class="avatar">AL</span><span class="speaker">Ana Lima</span><span class="time">0:52</span></div><div class="text">Yes</div></div>
   </div>
 </section>
 
-<section>
-  <h2>Fathom (mock layout: name, time, then text)</h2>
-  <aside id="fathom">
-    <div class="row"><div><span>Rob Sousa</span><span>00:05:32</span></div><p>First Fathom line of text.</p></div>
-    <div class="row"><div><span>Ana Lima</span><span>00:05:40</span></div><p>Second Fathom line, with a comma.</p></div>
-  </aside>
-</section>
 
 <nav>Decoy timestamp outside any transcript: <span>1:00</span> Summary chapter</nav>
 
@@ -86,14 +80,12 @@
 <script src="../src/core.js"></script>
 <script src="../src/adapters/tldv.js"></script>
 <script src="../src/adapters/otter.js"></script>
-<script src="../src/adapters/fathom.js"></script>
 <script>
 (async () => {
   const T = window.TranscriptExporter;
   const cases = {
     tldv: 'https://tldv.io/app/meetings/abc123',
     otter: 'https://otter.ai/u/XyZ-123',
-    fathom: 'https://fathom.video/calls/98765',
     none: 'https://example.com/meeting',
   };
   const out = {};
@@ -102,11 +94,11 @@
     if (!a) { out[name] = 'no adapter (expected)'; continue; }
     // Each heuristic adapter should only see its own panel, as on a real page.
     if (name === 'otter') document.getElementById('transcript-container').remove();
-    if (name === 'fathom') document.getElementById('otter').remove();
     out[name] = { adapter: a.id, ...(await a.extract(T.helpers)) };
   }
-  const counts = ['tldv', 'otter', 'fathom'].map((k) => out[k].paragraphs?.length || 0);
-  const ok = counts.join(',') === '3,3,2' && out.none.startsWith('no adapter');
+  const counts = ['tldv', 'otter'].map((k) => out[k].paragraphs?.length || 0);
+  const names = (out.otter.paragraphs || []).map((p) => p.speaker).join(',');
+  const ok = counts.join(',') === '3,4' && names === 'Kenny Afonso,Speaker 2,Speaker 2,Ana Lima' && out.none.startsWith('no adapter');
   const v = document.getElementById('verdict');
   v.textContent = ok ? 'PASS: all adapters returned the expected lines.' : 'FAIL: see output below.';
   v.className = ok ? 'ok' : 'fail';
