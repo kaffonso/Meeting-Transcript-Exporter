@@ -178,6 +178,19 @@ body { width: 310px; }
   box-shadow: 0 3px 0 var(--ink);
 }
 
+.nudge {
+  margin-top: 8px;
+  padding: 10px;
+  border: 2px solid var(--ink);
+  border-radius: 12px;
+  background: var(--paper);
+}
+.nudge p { margin: 0 0 8px; font-weight: 700; }
+.nudge-actions { display: flex; align-items: center; gap: 12px; }
+.btn-small { width: auto; padding: 6px 12px; font-size: 12px; }
+.link { border: 0; background: none; padding: 0; color: var(--muted); font: 600 12px var(--font); text-decoration: underline; cursor: pointer; }
+.link:focus-visible { outline: 3px solid var(--pink); outline-offset: 2px; }
+
 .trophies { margin-top: 10px; border-top: 2px dashed #C9BFD6; padding-top: 10px; }
 .trophies summary { cursor: pointer; font-weight: 800; list-style: none; display: flex; justify-content: space-between; }
 .trophies summary::-webkit-details-marker { display: none; }

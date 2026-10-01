@@ -136,6 +136,30 @@ async function showToasts(messages) {
   toast.hidden = true;
 }
 
+/* ---------- Review nudge ---------- */
+
+const STORE_REVIEWS_URL = 'https://chromewebstore.google.com/detail/fiejbjphjbbnhelfgeefeebckgochaob/reviews';
+const REVIEW_ASK_AFTER = 5;   // exports before the first ask
+const REVIEW_SNOOZE = 15;     // more exports before asking again
+
+async function maybeAskForReview(exports) {
+  const { review = {} } = await chrome.storage.local.get('review');
+  if (review.done || exports < Math.max(REVIEW_ASK_AFTER, review.askAfter || 0)) return;
+  $('nudge').hidden = false;
+}
+
+$('rate').onclick = async () => {
+  await chrome.storage.local.set({ review: { done: true } });
+  $('nudge').hidden = true;
+  chrome.tabs.create({ url: STORE_REVIEWS_URL });
+};
+
+$('rate-later').onclick = async () => {
+  const { exports } = await Game.load();
+  await chrome.storage.local.set({ review: { askAfter: exports + REVIEW_SNOOZE } });
+  $('nudge').hidden = true;
+};
+
 /* ---------- Export ---------- */
 
 async function run(format) {
@@ -176,6 +200,7 @@ async function run(format) {
     if (outcome.leveledUp) toasts.push(`⬆️ Level up! You're now a ${outcome.level.title}.`);
     outcome.unlocked.forEach((b) => toasts.push(`${b.emoji} Badge unlocked: ${b.name}`));
     if (toasts.length) showToasts(toasts);
+    maybeAskForReview(outcome.state.exports);
   } catch (err) {
     setMood('confused', err.message.includes('Cannot access')
       ? 'Chrome doesn\'t let extensions read this page. Open a meeting page instead.'
