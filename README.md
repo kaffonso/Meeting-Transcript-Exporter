@@ -35,6 +35,7 @@ Everything runs locally, so it's fast and your conversations never leave your ma
 - 🎮 **XP, levels, streaks and 12 badges**, just for fun
 - 🔒 **Private by design**: no analytics, no network requests, runs only when you click it
 - 🧩 **Adapter system**: support a new app by adding one file
+- 🌍 **Speaks your language**: English, Portuguese (PT and BR), Spanish, French and German, picked from your browser language
 
 ## Supported apps
 
@@ -124,6 +125,7 @@ popup.js ──inject──▶ src/core.js + src/adapters/*.js ──▶ adapter
 | `game.js` | XP, levels, streaks and badges |
 | `src/core.js` | Shared helpers and adapter registry |
 | `src/adapters/` | One file per supported app |
+| `_locales/` | UI strings per language, Chrome i18n format |
 
 ### Permissions
 

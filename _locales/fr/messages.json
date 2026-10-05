@@ -1,0 +1,251 @@
+{
+  "appName": {
+    "message": "Meeting Transcript Exporter"
+  },
+  "appDescription": {
+    "message": "Exportez les transcriptions de réunion déjà affichées dans votre navigateur en Markdown ou en texte brut."
+  },
+  "actionTitle": {
+    "message": "Exporter la transcription"
+  },
+  "appTitle": {
+    "message": "Transcript Exporter"
+  },
+  "siteLooking": {
+    "message": "Je regarde…"
+  },
+  "progressAria": {
+    "message": "Votre progression"
+  },
+  "mergeLabel": {
+    "message": "Fusionner les prises de parole consécutives d’une même personne"
+  },
+  "btnMd": {
+    "message": "Télécharger Markdown"
+  },
+  "btnTxt": {
+    "message": "Télécharger .txt"
+  },
+  "btnCopy": {
+    "message": "Copier"
+  },
+  "statusIdle": {
+    "message": "Ouvrez une réunion avec sa transcription affichée."
+  },
+  "nudgeAria": {
+    "message": "Évaluer cette extension"
+  },
+  "nudgeText": {
+    "message": "Ça vous plaît ? Un avis rapide aide les autres à la trouver."
+  },
+  "nudgeRate": {
+    "message": "Évaluer ⭐"
+  },
+  "nudgeLater": {
+    "message": "Pas maintenant"
+  },
+  "badgesSummary": {
+    "message": "Badges"
+  },
+  "resetBtn": {
+    "message": "Réinitialiser la progression"
+  },
+  "busy1": {
+    "message": "Lecture de chaque mot…"
+  },
+  "busy2": {
+    "message": "On passe le bavardage…"
+  },
+  "busy3": {
+    "message": "On note qui a dit quoi…"
+  },
+  "mdDate": {
+    "message": "Date"
+  },
+  "mdDuration": {
+    "message": "Durée"
+  },
+  "durationMins": {
+    "message": "~$1 min"
+  },
+  "mdSpeakers": {
+    "message": "Intervenants"
+  },
+  "mdSource": {
+    "message": "Source"
+  },
+  "levelNum": {
+    "message": "Niveau $1"
+  },
+  "xpMax": {
+    "message": "$1 XP · niveau max"
+  },
+  "xpProgress": {
+    "message": "$1 / $2 XP"
+  },
+  "streak": {
+    "message": "🔥 $1 jours"
+  },
+  "badgeLocked": {
+    "message": "Verrouillé : $1"
+  },
+  "oneDay": {
+    "message": "1 jour"
+  },
+  "manyDays": {
+    "message": "$1 jours"
+  },
+  "totals": {
+    "message": "$1 exports, $2 mots sauvegardés, meilleure série $3."
+  },
+  "xpFloat": {
+    "message": "+$1 XP"
+  },
+  "extractionFailed": {
+    "message": "L’extraction a échoué."
+  },
+  "onePerson": {
+    "message": "1 personne"
+  },
+  "manyPeople": {
+    "message": "$1 personnes"
+  },
+  "doneSaved": {
+    "message": "Enregistré ! $1 mots de $2."
+  },
+  "doneCopied": {
+    "message": "Copié ! $1 mots de $2."
+  },
+  "levelUp": {
+    "message": "⬆️ Niveau supérieur ! Vous êtes maintenant $1."
+  },
+  "badgeUnlocked": {
+    "message": "$1 Badge débloqué : $2"
+  },
+  "cannotAccess": {
+    "message": "Chrome n’autorise pas les extensions à lire cette page. Ouvrez plutôt la page d’une réunion."
+  },
+  "resetConfirm": {
+    "message": "Cliquez encore pour effacer tous les XP et badges"
+  },
+  "resetDone": {
+    "message": "Progression réinitialisée. On repart à zéro !"
+  },
+  "foundSite": {
+    "message": "$1 détecté"
+  },
+  "ready": {
+    "message": "Prêt quand vous l’êtes."
+  },
+  "noApp": {
+    "message": "Aucune app prise en charge ici"
+  },
+  "level_1": {
+    "message": "Novice des Notes"
+  },
+  "level_2": {
+    "message": "Preneur de Notes"
+  },
+  "level_3": {
+    "message": "Collectionneur de Citations"
+  },
+  "level_4": {
+    "message": "Dompteur de Transcriptions"
+  },
+  "level_5": {
+    "message": "Historien des Réunions"
+  },
+  "level_6": {
+    "message": "Gardien des Mots"
+  },
+  "level_7": {
+    "message": "Scribe Légendaire"
+  },
+  "badge_first_name": {
+    "message": "Premiers Mots"
+  },
+  "badge_first_hint": {
+    "message": "Exportez votre première transcription"
+  },
+  "badge_copycat_name": {
+    "message": "Copieur"
+  },
+  "badge_copycat_hint": {
+    "message": "Copiez une transcription dans le presse-papiers"
+  },
+  "badge_triple_name": {
+    "message": "Triple Menace"
+  },
+  "badge_triple_hint": {
+    "message": "Utilisez Markdown, .txt et Copier"
+  },
+  "badge_marathon_name": {
+    "message": "Réunion Marathon"
+  },
+  "badge_marathon_hint": {
+    "message": "Exportez une réunion d’une heure ou de 8 000 mots"
+  },
+  "badge_crowd_name": {
+    "message": "Salle Comble"
+  },
+  "badge_crowd_hint": {
+    "message": "Exportez une réunion avec 5 intervenants ou plus"
+  },
+  "badge_regular_name": {
+    "message": "Habitué"
+  },
+  "badge_regular_hint": {
+    "message": "Exportez 10 transcriptions"
+  },
+  "badge_archivist_name": {
+    "message": "Archiviste"
+  },
+  "badge_archivist_hint": {
+    "message": "Exportez 50 transcriptions"
+  },
+  "badge_streak3_name": {
+    "message": "Coup du Chapeau"
+  },
+  "badge_streak3_hint": {
+    "message": "Exportez 3 jours de suite"
+  },
+  "badge_streak7_name": {
+    "message": "Guerrier de la Semaine"
+  },
+  "badge_streak7_hint": {
+    "message": "Exportez 7 jours de suite"
+  },
+  "badge_owl_name": {
+    "message": "Oiseau de Nuit"
+  },
+  "badge_owl_hint": {
+    "message": "Exportez entre minuit et 5 h"
+  },
+  "badge_bird_name": {
+    "message": "Lève-tôt"
+  },
+  "badge_bird_hint": {
+    "message": "Exportez entre 5 h et 8 h"
+  },
+  "badge_hoarder_name": {
+    "message": "Accumulateur de Mots"
+  },
+  "badge_hoarder_hint": {
+    "message": "Exportez 100 000 mots au total"
+  },
+  "errUnsupported": {
+    "message": "Ce site n’est pas encore pris en charge. Voir CONTRIBUTING.md pour l’ajouter."
+  },
+  "errNoneOnPage": {
+    "message": "Aucune transcription trouvée sur cette page $1."
+  },
+  "errOpenTranscriptTab": {
+    "message": "Aucune transcription trouvée. Ouvrez d’abord l’onglet Transcription."
+  },
+  "defaultTitle": {
+    "message": "Transcription"
+  },
+  "unknownSpeaker": {
+    "message": "Inconnu"
+  }
+}

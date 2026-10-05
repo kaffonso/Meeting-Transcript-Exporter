@@ -7,10 +7,10 @@ TranscriptExporter.register({
   // Return true for pages of this app that show a transcript.
   matches: (url) => url.hostname === 'app.example.com' && url.pathname.startsWith('/meeting/'),
 
-  // helpers: clean, sleep, isTimestamp, scrollThrough, readJsonScript
-  async extract({ clean, scrollThrough }) {
+  // helpers: t, clean, sleep, isTimestamp, scrollThrough, readJsonScript, guessParagraphs
+  async extract({ t, clean, scrollThrough }) {
     const container = document.querySelector('.transcript-list');
-    if (!container) return { error: 'Open the transcript view first.' };
+    if (!container) return { error: t('errOpenTranscriptTab') };
 
     const collected = new Map(); // key -> { speaker, time, text }
     const grab = () => {

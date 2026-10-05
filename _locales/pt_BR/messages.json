@@ -1,0 +1,251 @@
+{
+  "appName": {
+    "message": "Meeting Transcript Exporter"
+  },
+  "appDescription": {
+    "message": "Exporte as transcrições de reuniões que você já vê no navegador para Markdown ou texto simples."
+  },
+  "actionTitle": {
+    "message": "Exportar transcrição"
+  },
+  "appTitle": {
+    "message": "Transcript Exporter"
+  },
+  "siteLooking": {
+    "message": "Dando uma olhada…"
+  },
+  "progressAria": {
+    "message": "Seu progresso"
+  },
+  "mergeLabel": {
+    "message": "Juntar falas seguidas da mesma pessoa"
+  },
+  "btnMd": {
+    "message": "Baixar Markdown"
+  },
+  "btnTxt": {
+    "message": "Baixar .txt"
+  },
+  "btnCopy": {
+    "message": "Copiar"
+  },
+  "statusIdle": {
+    "message": "Abra uma reunião com a transcrição visível."
+  },
+  "nudgeAria": {
+    "message": "Avaliar esta extensão"
+  },
+  "nudgeText": {
+    "message": "Está gostando? Uma avaliação rápida ajuda outras pessoas a encontrar a extensão."
+  },
+  "nudgeRate": {
+    "message": "Avaliar ⭐"
+  },
+  "nudgeLater": {
+    "message": "Agora não"
+  },
+  "badgesSummary": {
+    "message": "Conquistas"
+  },
+  "resetBtn": {
+    "message": "Zerar progresso"
+  },
+  "busy1": {
+    "message": "Lendo cada palavra…"
+  },
+  "busy2": {
+    "message": "Passando pelo papo furado…"
+  },
+  "busy3": {
+    "message": "Anotando quem disse o quê…"
+  },
+  "mdDate": {
+    "message": "Data"
+  },
+  "mdDuration": {
+    "message": "Duração"
+  },
+  "durationMins": {
+    "message": "~$1 min"
+  },
+  "mdSpeakers": {
+    "message": "Participantes"
+  },
+  "mdSource": {
+    "message": "Origem"
+  },
+  "levelNum": {
+    "message": "Nível $1"
+  },
+  "xpMax": {
+    "message": "$1 XP · nível máximo"
+  },
+  "xpProgress": {
+    "message": "$1 / $2 XP"
+  },
+  "streak": {
+    "message": "🔥 $1 dias"
+  },
+  "badgeLocked": {
+    "message": "Bloqueada: $1"
+  },
+  "oneDay": {
+    "message": "1 dia"
+  },
+  "manyDays": {
+    "message": "$1 dias"
+  },
+  "totals": {
+    "message": "$1 exportações, $2 palavras salvas, melhor sequência $3."
+  },
+  "xpFloat": {
+    "message": "+$1 XP"
+  },
+  "extractionFailed": {
+    "message": "A extração falhou."
+  },
+  "onePerson": {
+    "message": "1 pessoa"
+  },
+  "manyPeople": {
+    "message": "$1 pessoas"
+  },
+  "doneSaved": {
+    "message": "Salvo! $1 palavras de $2."
+  },
+  "doneCopied": {
+    "message": "Copiado! $1 palavras de $2."
+  },
+  "levelUp": {
+    "message": "⬆️ Subiu de nível! Agora você é $1."
+  },
+  "badgeUnlocked": {
+    "message": "$1 Conquista desbloqueada: $2"
+  },
+  "cannotAccess": {
+    "message": "O Chrome não deixa extensões lerem esta página. Abra a página de uma reunião."
+  },
+  "resetConfirm": {
+    "message": "Clique de novo para apagar todo o XP e as conquistas"
+  },
+  "resetDone": {
+    "message": "Progresso zerado. Recomeçando!"
+  },
+  "foundSite": {
+    "message": "Encontrei $1"
+  },
+  "ready": {
+    "message": "Quando você quiser."
+  },
+  "noApp": {
+    "message": "Nenhum app suportado aqui"
+  },
+  "level_1": {
+    "message": "Novato das Notas"
+  },
+  "level_2": {
+    "message": "Redator de Ata"
+  },
+  "level_3": {
+    "message": "Colecionador de Citações"
+  },
+  "level_4": {
+    "message": "Domador de Transcrições"
+  },
+  "level_5": {
+    "message": "Historiador de Reuniões"
+  },
+  "level_6": {
+    "message": "Guardião das Palavras"
+  },
+  "level_7": {
+    "message": "Escriba Lendário"
+  },
+  "badge_first_name": {
+    "message": "Primeiras Palavras"
+  },
+  "badge_first_hint": {
+    "message": "Exporte sua primeira transcrição"
+  },
+  "badge_copycat_name": {
+    "message": "Copiador"
+  },
+  "badge_copycat_hint": {
+    "message": "Copie uma transcrição para a área de transferência"
+  },
+  "badge_triple_name": {
+    "message": "Ameaça Tripla"
+  },
+  "badge_triple_hint": {
+    "message": "Use Markdown, .txt e Copiar"
+  },
+  "badge_marathon_name": {
+    "message": "Reunião Maratona"
+  },
+  "badge_marathon_hint": {
+    "message": "Exporte uma reunião de uma hora ou 8.000 palavras"
+  },
+  "badge_crowd_name": {
+    "message": "Casa Cheia"
+  },
+  "badge_crowd_hint": {
+    "message": "Exporte uma reunião com 5 ou mais participantes"
+  },
+  "badge_regular_name": {
+    "message": "Frequentador"
+  },
+  "badge_regular_hint": {
+    "message": "Exporte 10 transcrições"
+  },
+  "badge_archivist_name": {
+    "message": "Arquivista"
+  },
+  "badge_archivist_hint": {
+    "message": "Exporte 50 transcrições"
+  },
+  "badge_streak3_name": {
+    "message": "Hat Trick"
+  },
+  "badge_streak3_hint": {
+    "message": "Exporte em 3 dias seguidos"
+  },
+  "badge_streak7_name": {
+    "message": "Guerreiro da Semana"
+  },
+  "badge_streak7_hint": {
+    "message": "Exporte em 7 dias seguidos"
+  },
+  "badge_owl_name": {
+    "message": "Coruja Noturna"
+  },
+  "badge_owl_hint": {
+    "message": "Exporte entre meia-noite e 5h"
+  },
+  "badge_bird_name": {
+    "message": "Madrugador"
+  },
+  "badge_bird_hint": {
+    "message": "Exporte entre 5h e 8h"
+  },
+  "badge_hoarder_name": {
+    "message": "Acumulador de Palavras"
+  },
+  "badge_hoarder_hint": {
+    "message": "Exporte 100.000 palavras no total"
+  },
+  "errUnsupported": {
+    "message": "Este site ainda não é suportado. Veja o CONTRIBUTING.md para adicioná-lo."
+  },
+  "errNoneOnPage": {
+    "message": "Nenhuma transcrição encontrada nesta página do $1."
+  },
+  "errOpenTranscriptTab": {
+    "message": "Nenhuma transcrição encontrada. Abra primeiro a aba Transcrição."
+  },
+  "defaultTitle": {
+    "message": "Transcrição"
+  },
+  "unknownSpeaker": {
+    "message": "Desconhecido"
+  }
+}

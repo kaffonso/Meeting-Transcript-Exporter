@@ -1,29 +1,26 @@
 // Gamification: XP, levels, streaks and badges.
 // Everything is stored locally with chrome.storage.local and never leaves the browser.
-const Game = (() => {
-  const LEVELS = [
-    { xp: 0, title: 'Note Newbie' },
-    { xp: 50, title: 'Minute Taker' },
-    { xp: 150, title: 'Quote Collector' },
-    { xp: 350, title: 'Transcript Tamer' },
-    { xp: 700, title: 'Meeting Historian' },
-    { xp: 1200, title: 'Keeper of Words' },
-    { xp: 2000, title: 'Legendary Scribe' },
-  ];
+// Localised string lookup, shared with popup.js. Falls back to the key so a missing
+// message is visible instead of blank.
+const t = (key, subs) => (globalThis.chrome?.i18n?.getMessage(key, subs)) || key;
 
+const Game = (() => {
+  const LEVELS = [0, 50, 150, 350, 700, 1200, 2000].map((xp, i) => ({ xp, title: t(`level_${i + 1}`) }));
+
+  const badge = (id, emoji, test) => ({ id, emoji, name: t(`badge_${id}_name`), hint: t(`badge_${id}_hint`), test });
   const BADGES = [
-    { id: 'first', emoji: '🎉', name: 'First Words', hint: 'Export your first transcript', test: (s) => s.exports >= 1 },
-    { id: 'copycat', emoji: '📋', name: 'Copycat', hint: 'Copy a transcript to the clipboard', test: (s, e) => e.format === 'copy' },
-    { id: 'triple', emoji: '🎯', name: 'Triple Threat', hint: 'Use Markdown, .txt and Copy', test: (s) => ['md', 'txt', 'copy'].every((f) => s.formats.includes(f)) },
-    { id: 'marathon', emoji: '🏃', name: 'Marathon Meeting', hint: 'Export a meeting of an hour or 8,000 words', test: (s, e) => e.durationMins >= 60 || e.words >= 8000 },
-    { id: 'crowd', emoji: '👥', name: 'Full House', hint: 'Export a meeting with 5+ speakers', test: (s, e) => e.speakers >= 5 },
-    { id: 'regular', emoji: '⭐', name: 'Regular', hint: 'Export 10 transcripts', test: (s) => s.exports >= 10 },
-    { id: 'archivist', emoji: '🗄️', name: 'Archivist', hint: 'Export 50 transcripts', test: (s) => s.exports >= 50 },
-    { id: 'streak3', emoji: '🔥', name: 'Hat Trick', hint: 'Export on 3 days in a row', test: (s) => s.streak >= 3 },
-    { id: 'streak7', emoji: '📅', name: 'Week Warrior', hint: 'Export on 7 days in a row', test: (s) => s.streak >= 7 },
-    { id: 'owl', emoji: '🦉', name: 'Night Owl', hint: 'Export between midnight and 5am', test: (s, e) => e.hour < 5 },
-    { id: 'bird', emoji: '🐦', name: 'Early Bird', hint: 'Export between 5am and 8am', test: (s, e) => e.hour >= 5 && e.hour < 8 },
-    { id: 'hoarder', emoji: '📚', name: 'Word Hoarder', hint: 'Export 100,000 words in total', test: (s) => s.words >= 100000 },
+    badge('first', '🎉', (s) => s.exports >= 1),
+    badge('copycat', '📋', (s, e) => e.format === 'copy'),
+    badge('triple', '🎯', (s) => ['md', 'txt', 'copy'].every((f) => s.formats.includes(f))),
+    badge('marathon', '🏃', (s, e) => e.durationMins >= 60 || e.words >= 8000),
+    badge('crowd', '👥', (s, e) => e.speakers >= 5),
+    badge('regular', '⭐', (s) => s.exports >= 10),
+    badge('archivist', '🗄️', (s) => s.exports >= 50),
+    badge('streak3', '🔥', (s) => s.streak >= 3),
+    badge('streak7', '📅', (s) => s.streak >= 7),
+    badge('owl', '🦉', (s, e) => e.hour < 5),
+    badge('bird', '🐦', (s, e) => e.hour >= 5 && e.hour < 8),
+    badge('hoarder', '📚', (s) => s.words >= 100000),
   ];
 
   const BADGE_XP = 25;

@@ -7,10 +7,10 @@ TranscriptExporter.register({
 
   matches: (url) => /(^|\.)otter\.ai$/.test(url.hostname) && /^\/u\/[\w-]+/.test(url.pathname),
 
-  async extract({ clean, pickRoot, timestampLeaves, scrollParent, scrollThrough, guessParagraphs }) {
+  async extract({ t, clean, pickRoot, timestampLeaves, scrollParent, scrollThrough, guessParagraphs }) {
     const root = pickRoot(['[class*="transcript" i]', '[id*="transcript" i]', 'main']);
     const first = timestampLeaves(root)[0];
-    if (!first) return { error: 'No transcript found. Open the Transcript tab first.' };
+    if (!first) return { error: t('errOpenTranscriptTab') };
 
     const collected = new Map();
     const grab = () => {

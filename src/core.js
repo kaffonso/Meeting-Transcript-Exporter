@@ -6,6 +6,9 @@
   const adapters = new Map();
 
   const helpers = {
+    // Localised message, falling back to the key. chrome.i18n is available in injected scripts.
+    t: (key, subs) => (globalThis.chrome?.i18n?.getMessage(key, subs)) || key,
+
     clean: (s) => (s || '').replace(/\s+/g, ' ').trim(),
 
     sleep: (ms) => new Promise((r) => setTimeout(r, ms)),
@@ -146,17 +149,17 @@
 
     async run() {
       const adapter = this.find();
-      if (!adapter) return { error: 'This site is not supported yet. See CONTRIBUTING.md to add it.' };
+      if (!adapter) return { error: helpers.t('errUnsupported') };
       const result = await adapter.extract(helpers);
       if (result?.error) return result;
       const paragraphs = (result?.paragraphs || []).filter((p) => p && p.text);
-      if (!paragraphs.length) return { error: `No transcript found on this ${adapter.name} page.` };
+      if (!paragraphs.length) return { error: helpers.t('errNoneOnPage', [adapter.name]) };
       return {
         source: adapter.name,
-        title: result.title || document.title || 'Transcript',
+        title: result.title || document.title || helpers.t('defaultTitle'),
         meta: result.meta || {},
         paragraphs: paragraphs.map((p) => ({
-          speaker: p.speaker || 'Unknown',
+          speaker: p.speaker || helpers.t('unknownSpeaker'),
           time: p.time || '',
           text: p.text,
         })),

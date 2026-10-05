@@ -11,7 +11,7 @@ const statusEl = $('status');
 const siteEl = $('site');
 
 const pick = (list) => list[Math.floor(Math.random() * list.length)];
-const BUSY = ['Reading every word…', 'Scrolling through the chit-chat…', 'Collecting who said what…'];
+const BUSY = ['busy1', 'busy2', 'busy3'].map((k) => t(k));
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 function setMood(mood, msg) {
@@ -55,10 +55,10 @@ function mergeParagraphs(paragraphs) {
 
 function toMarkdown({ title, meta, source, paragraphs }) {
   const lines = [`# ${title}`, ''];
-  if (meta.date) lines.push(`**Date:** ${new Date(meta.date).toLocaleString()}  `);
-  if (meta.durationMins) lines.push(`**Duration:** ~${Math.round(Number(meta.durationMins))} min  `);
+  if (meta.date) lines.push(`**${t('mdDate')}:** ${new Date(meta.date).toLocaleString()}  `);
+  if (meta.durationMins) lines.push(`**${t('mdDuration')}:** ${t('durationMins', [String(Math.round(Number(meta.durationMins)))])}  `);
   const speakers = [...new Set(paragraphs.map((p) => p.speaker))];
-  lines.push(`**Speakers:** ${speakers.join(', ')}  `, `**Source:** ${source}`, '', '---', '');
+  lines.push(`**${t('mdSpeakers')}:** ${speakers.join(', ')}  `, `**${t('mdSource')}:** ${source}`, '', '---', '');
   for (const p of paragraphs) {
     lines.push(`**${p.speaker}**${p.time ? ` (${p.time})` : ''}: ${p.text}`, '');
   }
@@ -88,8 +88,8 @@ function download(content, filename, mime) {
 function renderProgress(state, newBadgeIds = []) {
   const level = Game.levelFor(state.xp);
   $('level-title').textContent = level.title;
-  $('level-num').textContent = `Level ${level.number}`;
-  $('xp-text').textContent = level.next === null ? `${state.xp} XP · max level` : `${state.xp} / ${level.next} XP`;
+  $('level-num').textContent = t('levelNum', [String(level.number)]);
+  $('xp-text').textContent = level.next === null ? t('xpMax', [String(state.xp)]) : t('xpProgress', [String(state.xp), String(level.next)]);
 
   const pct = Math.round(level.progress * 100);
   $('bar-fill').style.width = `${pct}%`;
@@ -98,7 +98,7 @@ function renderProgress(state, newBadgeIds = []) {
 
   const streak = $('streak');
   streak.hidden = state.streak < 2;
-  streak.textContent = `🔥 ${state.streak} day streak`;
+  streak.textContent = t('streak', [String(state.streak)]);
 
   const list = $('badges');
   list.replaceChildren(...Game.BADGES.map((b) => {
@@ -106,19 +106,19 @@ function renderProgress(state, newBadgeIds = []) {
     const earned = Boolean(state.badges[b.id]);
     li.className = `badge${earned ? '' : ' locked'}${newBadgeIds.includes(b.id) ? ' new' : ''}`;
     li.textContent = earned ? b.emoji : '?';
-    li.title = earned ? `${b.name}: ${b.hint}` : `Locked: ${b.hint}`;
+    li.title = earned ? `${b.name}: ${b.hint}` : t('badgeLocked', [b.hint]);
     li.setAttribute('aria-label', li.title);
     return li;
   }));
   $('badge-count').textContent = `${Object.keys(state.badges).length} / ${Game.BADGES.length}`;
 
-  $('totals').textContent =
-    `${state.exports} exports, ${state.words.toLocaleString()} words saved, best streak ${state.bestStreak} ${state.bestStreak === 1 ? 'day' : 'days'}.`;
+  const best = state.bestStreak === 1 ? t('oneDay') : t('manyDays', [String(state.bestStreak)]);
+  $('totals').textContent = t('totals', [String(state.exports), state.words.toLocaleString(), best]);
 }
 
 function floatXp(amount) {
   const el = $('xp-float');
-  el.textContent = `+${amount} XP`;
+  el.textContent = t('xpFloat', [String(amount)]);
   el.classList.remove('show');
   void el.offsetWidth;
   el.classList.add('show');
@@ -170,7 +170,7 @@ async function run(format) {
     const tab = await getTab();
     await inject(tab.id);
     const result = await callInPage(tab.id, 'run');
-    if (!result || result.error) throw new Error(result?.error || 'Extraction failed.');
+    if (!result || result.error) throw new Error(result?.error || t('extractionFailed'));
 
     const words = result.paragraphs.reduce((n, p) => n + p.text.split(/\s+/).filter(Boolean).length, 0);
     const people = new Set(result.paragraphs.map((p) => p.speaker)).size;
@@ -191,20 +191,18 @@ async function run(format) {
       key: url.origin + url.pathname,
     });
 
-    const done = format === 'copy' ? 'Copied' : 'Saved';
-    setMood('happy', `${done}! ${words.toLocaleString()} words from ${people} ${people === 1 ? 'person' : 'people'}.`);
+    const who = people === 1 ? t('onePerson') : t('manyPeople', [String(people)]);
+    setMood('happy', t(format === 'copy' ? 'doneCopied' : 'doneSaved', [words.toLocaleString(), who]));
     renderProgress(outcome.state, outcome.unlocked.map((b) => b.id));
     floatXp(outcome.gained);
 
     const toasts = [];
-    if (outcome.leveledUp) toasts.push(`⬆️ Level up! You're now a ${outcome.level.title}.`);
-    outcome.unlocked.forEach((b) => toasts.push(`${b.emoji} Badge unlocked: ${b.name}`));
+    if (outcome.leveledUp) toasts.push(t('levelUp', [outcome.level.title]));
+    outcome.unlocked.forEach((b) => toasts.push(t('badgeUnlocked', [b.emoji, b.name])));
     if (toasts.length) showToasts(toasts);
     maybeAskForReview(outcome.state.exports);
   } catch (err) {
-    setMood('confused', err.message.includes('Cannot access')
-      ? 'Chrome doesn\'t let extensions read this page. Open a meeting page instead.'
-      : err.message);
+    setMood('confused', err.message.includes('Cannot access') ? t('cannotAccess') : err.message);
   } finally {
     buttons.forEach((b) => (b.disabled = false));
   }
@@ -217,23 +215,30 @@ $('reset').onclick = async () => {
   const btn = $('reset');
   if (!btn.classList.contains('armed')) {
     btn.classList.add('armed');
-    btn.textContent = 'Click again to erase all XP and badges';
+    btn.textContent = t('resetConfirm');
     resetTimer = setTimeout(() => {
       btn.classList.remove('armed');
-      btn.textContent = 'Reset progress';
+      btn.textContent = t('resetBtn');
     }, 3000);
     return;
   }
   clearTimeout(resetTimer);
   btn.classList.remove('armed');
-  btn.textContent = 'Reset progress';
+  btn.textContent = t('resetBtn');
   renderProgress(await Game.reset());
-  setMood('idle', 'Progress reset. Fresh start!');
+  setMood('idle', t('resetDone'));
 };
 
 /* ---------- Init ---------- */
 
+function localise() {
+  document.documentElement.lang = chrome.i18n.getUILanguage();
+  document.querySelectorAll('[data-i18n]').forEach((el) => { el.textContent = t(el.dataset.i18n); });
+  document.querySelectorAll('[data-i18n-aria]').forEach((el) => { el.setAttribute('aria-label', t(el.dataset.i18nAria)); });
+}
+
 (async () => {
+  localise();
   try { renderProgress(await Game.load()); } catch { /* storage unavailable */ }
 
   try {
@@ -241,12 +246,12 @@ $('reset').onclick = async () => {
     await inject(tab.id);
     const found = await callInPage(tab.id, 'detect');
     if (found) {
-      siteEl.textContent = `Found ${found.name}`;
-      setMood('idle', 'Ready when you are.');
+      siteEl.textContent = t('foundSite', [found.name]);
+      setMood('idle', t('ready'));
       return;
     }
   } catch { /* unsupported or restricted page */ }
-  siteEl.textContent = 'No supported app here';
+  siteEl.textContent = t('noApp');
   siteEl.classList.add('nope');
 })();
 

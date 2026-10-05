@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="popup.css">
@@ -36,12 +36,12 @@
         </g>
       </svg>
       <div>
-        <h1>Transcript Exporter</h1>
-        <p class="site" id="site">Looking around…</p>
+        <h1 data-i18n="appTitle">Transcript Exporter</h1>
+        <p class="site" id="site" data-i18n="siteLooking">Looking around…</p>
       </div>
     </header>
 
-    <section class="level" aria-label="Your progress">
+    <section class="level" data-i18n-aria="progressAria" aria-label="Your progress">
       <div class="level-row">
         <strong id="level-title">Note Newbie</strong>
         <span class="streak" id="streak" hidden></span>
@@ -58,35 +58,35 @@
     <label class="switch">
       <input type="checkbox" id="merge" checked>
       <span class="track"><span class="knob"></span></span>
-      <span>Merge back-to-back lines from the same person</span>
+      <span data-i18n="mergeLabel">Merge back-to-back lines from the same person</span>
     </label>
 
     <div class="main-wrap">
-      <button class="btn btn-main" id="md">Download Markdown</button>
+      <button class="btn btn-main" id="md" data-i18n="btnMd">Download Markdown</button>
       <span class="xp-float" id="xp-float" aria-hidden="true"></span>
     </div>
     <div class="row">
-      <button class="btn" id="txt">Download .txt</button>
-      <button class="btn" id="copy">Copy</button>
+      <button class="btn" id="txt" data-i18n="btnTxt">Download .txt</button>
+      <button class="btn" id="copy" data-i18n="btnCopy">Copy</button>
     </div>
 
-    <p class="status" id="status" role="status" aria-live="polite">Open a meeting with its transcript showing.</p>
+    <p class="status" id="status" role="status" aria-live="polite" data-i18n="statusIdle">Open a meeting with its transcript showing.</p>
 
     <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 
-    <aside class="nudge" id="nudge" aria-label="Rate this extension" hidden>
-      <p>Enjoying it? A quick review helps others find it.</p>
+    <aside class="nudge" id="nudge" data-i18n-aria="nudgeAria" aria-label="Rate this extension" hidden>
+      <p data-i18n="nudgeText">Enjoying it? A quick review helps others find it.</p>
       <div class="nudge-actions">
-        <button class="btn btn-small" id="rate" type="button">Rate it ⭐</button>
-        <button class="link" id="rate-later" type="button">Not now</button>
+        <button class="btn btn-small" id="rate" type="button" data-i18n="nudgeRate">Rate it ⭐</button>
+        <button class="link" id="rate-later" type="button" data-i18n="nudgeLater">Not now</button>
       </div>
     </aside>
 
     <details class="trophies">
-      <summary>Badges <span class="count" id="badge-count">0 / 12</span></summary>
+      <summary><span data-i18n="badgesSummary">Badges</span> <span class="count" id="badge-count">0 / 12</span></summary>
       <ul class="badges" id="badges"></ul>
       <p class="totals" id="totals"></p>
-      <button class="reset" id="reset" type="button">Reset progress</button>
+      <button class="reset" id="reset" type="button" data-i18n="resetBtn">Reset progress</button>
     </details>
   </main>
   <script src="game.js"></script>

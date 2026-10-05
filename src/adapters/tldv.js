@@ -7,9 +7,9 @@ TranscriptExporter.register({
 
   matches: (url) => /(^|\.)tldv\.io$/.test(url.hostname) && /\/meetings\/[\w-]+/.test(url.pathname),
 
-  async extract({ clean, scrollThrough }) {
+  async extract({ t, clean, scrollThrough }) {
     const container = document.getElementById('transcript-container');
-    if (!container) return { error: 'No transcript found. Open the Transcript tab first.' };
+    if (!container) return { error: t('errOpenTranscriptTab') };
 
     const collected = new Map();
     const grab = () => {

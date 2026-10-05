@@ -1,8 +1,9 @@
 {
   "manifest_version": 3,
-  "name": "Meeting Transcript Exporter",
-  "version": "1.4.2",
-  "description": "Export meeting transcripts you can already see in your browser to Markdown or plain text.",
+  "name": "__MSG_appName__",
+  "version": "1.5.0",
+  "description": "__MSG_appDescription__",
+  "default_locale": "en",
   "permissions": [
     "activeTab",
     "scripting",
@@ -10,7 +11,7 @@
   ],
   "action": {
     "default_popup": "popup.html",
-    "default_title": "Export transcript",
+    "default_title": "__MSG_actionTitle__",
     "default_icon": {
       "16": "icons/icon-16.png",
       "32": "icons/icon-32.png",

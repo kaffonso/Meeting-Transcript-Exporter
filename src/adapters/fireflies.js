@@ -5,9 +5,9 @@ TranscriptExporter.register({
 
   matches: (url) => /(^|\.)fireflies\.ai$/.test(url.hostname) && url.pathname.startsWith('/view/'),
 
-  async extract({ clean, isTimestamp, scrollThrough, readJsonScript }) {
+  async extract({ t, clean, isTimestamp, scrollThrough, readJsonScript }) {
     const first = document.querySelector('[id^="transcript-paragraph-"]');
-    if (!first) return { error: 'No transcript found. Open the Transcript tab first.' };
+    if (!first) return { error: t('errOpenTranscriptTab') };
 
     const collected = new Map();
     const grab = () => {
