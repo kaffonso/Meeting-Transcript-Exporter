@@ -5,11 +5,12 @@
 <h1 align="center">Meeting Transcript Exporter</h1>
 
 <p align="center">
-  Export the meeting transcript you're looking at to <b>Markdown</b> or <b>plain text</b>, in one click.<br>
+  Export your <b>Fireflies.ai</b>, <b>tl;dv</b> and <b>Otter.ai</b> meeting transcripts to <b>Markdown</b> or <b>plain text</b>, in one click.<br>
   No AI, no account, no servers. And you level up while you do it.
 </p>
 
 <p align="center">
+  <a href="https://chromewebstore.google.com/detail/meeting-transcript-export/fiejbjphjbbnhelfgeefeebckgochaob?utm_source=github&utm_medium=readme-badge"><img alt="Chrome Web Store" src="https://img.shields.io/chrome-web-store/v/fiejbjphjbbnhelfgeefeebckgochaob?label=chrome%20web%20store&color=2A1B3D"></a>
   <img alt="Manifest V3" src="https://img.shields.io/badge/manifest-v3-2A1B3D">
   <img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-FFB800">
   <img alt="No tracking" src="https://img.shields.io/badge/tracking-none-FF6B8A">
@@ -49,7 +50,7 @@ Everything runs locally, so it's fast and your conversations never leave your ma
 ## Install
 
 ### From the Chrome Web Store
-_Coming soon._
+**[Add to Chrome](https://chromewebstore.google.com/detail/meeting-transcript-export/fiejbjphjbbnhelfgeefeebckgochaob?utm_source=github&utm_medium=readme)**. Works in Chrome, Brave, Edge and Arc too.
 
 ### From source
 1. [Download the latest release](../../releases/latest) or clone this repo.
